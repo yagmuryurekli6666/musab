@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masa Tenisi Galerisi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="container header">
+        <div class="logo"><h1>🏆 Musab Site</h1></div>
+        <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        <nav class="nav-links">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="index.html#kategoriler">Kategoriler</a>
+            <a href="hakkimda.html">Hakkımda</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <h1 class="page-title">🏓 Masa Tenisi Galerisi</h1>
+    <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+
+    <div class="grid grid-3">
+        <div class="card"><img src="image/67 (1).jpg" onclick="buyut(0)"><h3>🏓 Maç Anı</h3></div>
+        <div class="card"><img src="image/67 (1).jpg" onclick="buyut(1)"><h3>🏓 Smaç</h3></div>
+        <div class="card"><img src="image/67 (1).jpg" onclick="buyut(2)"><h3>🏓 Salon Atmosferi</h3></div>
+        <div class="card"><img src="image/67 (1).jpg" onclick="buyut(3)"><h3>🏓 Blok</h3></div>
+        <div class="card"><img src="image/67 (1).jpg" onclick="buyut(4)"><h3>🏓 Takım Oyunu</h3></div>
+        <div class="card"><img src="image/67 (1).jpg" onclick="buyut(5)"><h3>🏓 Şampiyonluk</h3></div>
+    </div>
+</div>
+
+<div id="popup">
+    <span class="close" onclick="kapat()">✖</span>
+    <span class="prev" onclick="geri()">❮</span>
+    <span class="next" onclick="ileri()">❯</span>
+    <div class="popup-content">
+        <img id="popup-img">
+        <h2 id="popup-title"></h2>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container footer-grid">
+        <div><h2>Musab Site</h2><p>Keşfet, öğren, eğlen 🚀</p></div>
+        <div><h3>Menü</h3><a href="index.html">Ana Sayfa</a><a href="#kategoriler">Kategoriler</a><a href="hakkimda.html">Hakkımda</a></div>
+        <div><h3>Kategoriler</h3>
+            <a href="futbol.html">Futbol</a>
+            <a href="basketbol.html">Basketbol</a>
+            <a href="voleybol.html">Voleybol</a>
+            <a href="masatenisi.html">Masa Tenisi</a>
+            <a href="hentbol.html">Hentbol</a>
+            <a href="buzhokeyi.html">Buz Hokeyi</a>
+        </div>
+        <div><h3>Bizi Takip Et</h3>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="#"><i class="fab fa-tiktok"></i> TikTok</a>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2026 Musab Site</div>
+</footer>
+
+<button id="topBtn" onclick="yukariCik()">⬆</button>
+
+<script>
+let images = [
+    {src:"image/67 (1).jpg", title:"Maç Anı"},
+    {src:"image/67 (1).jpg", title:"Smaç"},
+    {src:"image/67 (1).jpg", title:"Salon Atmosferi"},
+    {src:"image/67 (1).jpg", title:"Blok"},
+    {src:"image/67 (1).jpg", title:"Takım Oyunu"},
+    {src:"image/67 (1).jpg", title:"Şampiyonluk"}
+];
+let index = 0;
+
+function buyut(i){
+    index = i;
+    goster();
+    const popup=document.getElementById("popup");
+    popup.style.display="flex";
+    document.body.style.overflow="hidden";
+    setTimeout(()=>popup.classList.add("show"),10);
+}
+
+function goster() {
+    const popupImg = document.getElementById("popup-img");
+    
+    // önce eskiyi gizle
+    popupImg.classList.remove('show');
+    popupImg.classList.add('hide');
+
+    // küçük bir gecikme ile yeni resmi göster
+    setTimeout(() => {
+        popupImg.src = images[index].src;
+        document.getElementById("popup-title").innerText = images[index].title;
+        popupImg.classList.remove('hide');
+        popupImg.classList.add('show');
+    }, 200);
+}
+
+function kapat(){
+    const popup=document.getElementById("popup");
+    popup.classList.remove("show");
+    setTimeout(()=>{
+        popup.style.display="none";
+        document.body.style.overflow="auto";
+    },300);
+}
+
+function ileri(){index=(index+1)%images.length; goster();}
+function geri(){index=(index-1+images.length)%images.length; goster();}
+
+window.onscroll = function(){
+    let btn=document.getElementById("topBtn");
+    btn.style.display=document.documentElement.scrollTop>200?"block":"none";
+};
+
+function yukariCik(){window.scrollTo({top:0,behavior:"smooth"});}
+document.addEventListener("keydown",function(e){
+    if(e.key==="Escape") kapat();
+    if(e.key==="ArrowRight") ileri();
+    if(e.key==="ArrowLeft") geri();
+});
+
+function toggleMenu(){document.querySelector('.nav-links').classList.toggle('active');}
+</script>
+
+</body>
+</html>
